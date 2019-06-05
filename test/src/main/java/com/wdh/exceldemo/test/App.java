@@ -1,0 +1,85 @@
+package com.wdh.exceldemo.test;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+import org.apache.poi.xssf.usermodel.XSSFFont;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+/**
+ * Hello world!
+ *
+ */
+public class App 
+{
+	
+
+	public static void excelWrite() throws Exception {
+		//获得Excel文件输出流
+
+		OutputStream out = new FileOutputStream("D:\\tmp/test.xlsx");
+        XSSFWorkbook workbook = new XSSFWorkbook();
+//        样式
+        XSSFFont font = workbook.createFont();
+        font.setBold(true);
+        font.setFontHeightInPoints((short) 12);
+
+
+        XSSFSheet sheet = workbook.createSheet("01");
+//        rows
+        XSSFRow row = sheet.createRow(0);
+//        cells
+        XSSFCell c1 = row.createCell(0);
+
+        c1.setCellValue("dada");
+        XSSFCell c2 = row.createCell(1);
+        c2.setCellValue("工资");
+        workbook.write(out);
+        out.close();
+	}
+
+	
+	
+	public static void excelRead() throws Exception {
+		//获得Excel文件输出流
+
+		InputStream in = new FileInputStream("D:\\tmp/test.xlsx");
+        XSSFWorkbook workbook = new XSSFWorkbook(in);
+
+
+
+        XSSFSheet sheet = workbook.getSheetAt(0);
+    	for (int i = 1; i < sheet.getPhysicalNumberOfRows(); i++) {
+    		XSSFRow row = sheet.getRow(i);
+				if(row.getCell(0).getNumericCellValue()==1&&row.getCell(1).getNumericCellValue()==6)
+					row.createCell(2).setCellValue("ok");
+    		
+
+		}	
+    	OutputStream out = new FileOutputStream("D:\\tmp/test.xlsx");
+    	workbook.write(out);
+        out.close();
+	}
+
+	
+    public static void main( String[] args )
+    {
+    	try {
+    		excelRead();
+    		System.out.println("success");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+    }
+}
