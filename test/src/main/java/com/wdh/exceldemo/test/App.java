@@ -2,6 +2,7 @@ package com.wdh.exceldemo.test;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -86,7 +87,7 @@ public class App
 	}
 
 	
-	
+	//通过value找到对应字段
 	public static void excelRead() throws Exception {
 		//获得Excel文件输出流
 
@@ -112,11 +113,82 @@ public class App
         out.close();
 	}
 
+	//将id相同的value放到同一行
+	public static void excelRead2() throws Exception {
+		//获得Excel文件输出流
+
+		InputStream in = new FileInputStream("D:\\tmp/test.xlsx");
+        XSSFWorkbook workbook = new XSSFWorkbook(in);
+        XSSFSheet sheet = workbook.getSheetAt(0);
+        String temp="";
+        String lasttemp="";
+        int k=1;
+        //遍历行
+    	for (int i = 1; i < sheet.getPhysicalNumberOfRows(); i++) {
+    		XSSFRow row = sheet.getRow(i);
+    		temp = row.getCell(0).getStringCellValue();
+    		if(temp.equals(lasttemp))
+    		{
+    			
+    			String miaoshu=row.getCell(1).getStringCellValue();
+        		String des[]=miaoshu.split(",");
+        		for(int j=0;j<des.length;j++)
+        		{
+        			
+        			String temp2=des[j].substring(0, des[j].length()-1)+"1";
+        			if(pool.keySet().contains(temp2))
+        			{
+        				sheet.getRow(i-k).createCell(pool.get(temp2)+1).setCellValue(des[j]);
+        			}
+        		}
+        		k++;
+    		}
+    		else
+    		{
+    			k=1;
+    			String miaoshu=row.getCell(1).getStringCellValue();
+        		String des[]=miaoshu.split(",");
+        		for(int j=0;j<des.length;j++)
+        		{
+        			String temp2=des[j].substring(0, des[j].length()-1)+"1";
+        			if(pool.keySet().contains(temp2))
+        			{
+        				row.createCell(pool.get(temp2)+1).setCellValue(des[j]);
+        			}
+        		}
+    		}
+    		lasttemp=temp;
+		}	
+    	OutputStream out = new FileOutputStream("D:\\tmp/test.xlsx");
+    	workbook.write(out);
+        out.close();
+	}
+	// 删除重复行   待修改为shiftRows(startRow,endRow,shiftCount)
+	public static void deleteRow() throws Exception
+	{
+		InputStream in = new FileInputStream("D:\\tmp/test.xlsx");
+        XSSFWorkbook workbook = new XSSFWorkbook(in);
+        XSSFSheet sheet = workbook.getSheetAt(0);
+        int deleted=0;
+        String temp="";
+        String lasttemp="";
+        //遍历行
+    	for (int i = 1; i < sheet.getPhysicalNumberOfRows(); i++) {
+    		XSSFRow row = sheet.getRow(i);
+    		temp=row.getCell(0).getStringCellValue();
+    		if(temp.equals(lasttemp))
+    			sheet.removeRow(row);
+    		lasttemp=temp;
+		}	
+    	OutputStream out = new FileOutputStream("D:\\tmp/test.xlsx");
+    	workbook.write(out);
+        out.close();
+	}
 	
     public static void main( String[] args )
     {
     	try {
-    		excelRead();
+    		deleteRow();
     		System.out.println("success");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
