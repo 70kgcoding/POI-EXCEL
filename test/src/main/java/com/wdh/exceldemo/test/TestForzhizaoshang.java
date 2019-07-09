@@ -130,6 +130,8 @@ public class TestForzhizaoshang {
 		pool.put("Milliken Enterprise Management","MF-0259");
 		pool.put("哈德逊水技术咨询有限公司","MF-0260");
 		pool.put("Graver Technologies","MF-0261");
+		pool.put("默克生命科学(上海)有限公司","MF-0262");
+		pool.put("Aladdin Industrial Corporation","MF-0263");
 	}
 
 		public static void excelRead() throws Exception {
