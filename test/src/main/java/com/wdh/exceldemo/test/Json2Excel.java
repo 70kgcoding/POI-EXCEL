@@ -104,7 +104,7 @@ public class Json2Excel {
 	                    //插入市
 	                    sheet.getRow(tag).createCell(2).setCellValue(name2);
 	                    //sheet.getRow(tag).createCell(1).setCellValue(name1);
-	                    sheet.getRow(tag).createCell(4).setCellValue(tag4city);
+	                    //sheet.getRow(tag).createCell(4).setCellValue(tag4city);
 	                    System.out.println(tag);
 	                    tag4city++;
 
@@ -125,7 +125,7 @@ public class Json2Excel {
 	                        //sheet.getRow(tag).createCell(1).setCellValue(name1);
 	                        //sheet.getRow(tag).createCell(2).setCellValue(name2);
 	                        sheet.getRow(tag).createCell(3).setCellValue(name3);
-	                        sheet.getRow(tag).createCell(4).setCellValue(tag4street);
+	                        //sheet.getRow(tag).createCell(4).setCellValue(tag4street);
 	                        tag4street++;
 	                        System.out.println(tag);	                        //  JSONArray street = street3.getJSONArray("districts");
 	                        //有需要可以继续向下遍历

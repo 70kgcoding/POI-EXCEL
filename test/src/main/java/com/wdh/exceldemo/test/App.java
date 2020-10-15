@@ -6,7 +6,9 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.Map;
 
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.IndexedColors;
@@ -187,13 +189,10 @@ public class App
 	
     public static void main( String[] args )
     {
-    	try {
-    		deleteRow();
-    		System.out.println("success");
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+    	Map map = new HashMap();
+    	map.put(1, 10);
+    	map.put(1, 20);
+    	System.out.println(map.toString());
     	
     }
 }
